@@ -34,7 +34,7 @@ class Header extends Component {
         return (
             <header className={classes.navbar}>
                 <div className={classes.logo}>
-                    <Link to="/">ReactcolorApp</Link>
+                    <Link to="/">Coolorize</Link>
                 </div>
                 {showSlider && 
                 <div className={classes.slider_container}>
