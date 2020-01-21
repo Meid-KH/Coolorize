@@ -22,21 +22,21 @@ class  NewPalette extends Component {
     super();
     this.state = {
       open : true,
-      currentColor : "#272727",
-      newPaletteName: "",
-      colors : [{ color: "red", name: "Red" }]
+      currentColor : "#ff0000",
+      newColorName: "",
+      colors : [{ color: "#ff0000", name: "Red" }]
     }
   }
 
   componentDidMount() {
     // Color name Rule
-    ValidatorForm.addValidationRule('isColorNameUnique', (value) => {
-      this.state.colors.every( ({name}) => name.toLowerCase() !== value.toLowerCase() );
-    });
+    ValidatorForm.addValidationRule('isColorNameUnique', value => 
+      this.state.colors.every( ({name}) => name.toLowerCase() !== value.toLowerCase() )
+    );
     // Color Rule
-    ValidatorForm.addValidationRule('isColorUnique', (value) => {
-      this.state.colors.every( ({color}) => color !== this.state.currentColor );
-    });
+    ValidatorForm.addValidationRule('isColorUnique', () => 
+      this.state.colors.every( ({color}) => color !== this.state.currentColor )
+    );
   }
 
   handleDrawerOpen = () => {
@@ -49,33 +49,34 @@ class  NewPalette extends Component {
 
   handleChangeComplete = (color) => {
     this.setState({
-      currentColor : color
+      currentColor : color.hex
     });
-    console.log(this.state.currentColor.hex);
+    // console.log(this.state.currentColor.hex);
   }
 
   handleAddColor = () => {
     const newColor = {
-      color : this.state.currentColor.hex,
-      name : this.state.newPaletteName
+      color : this.state.currentColor,
+      name : this.state.newColorName
     }
     this.setState({
-      colors : [...this.state.colors, newColor]
+      colors : [...this.state.colors, newColor],
+      newColorName: ""
     });
-    console.log('selected colors : '+ this.state.colors);
+    console.log('currentColor : '+ this.state.currentColor);
   }
 
   handleChange = (evt) => {
     this.setState({
-      newPaletteName : evt.target.value
+      newColorName : evt.target.value
     });
   }
 
   render () {
-    const {open, colors, currentColor, newPaletteName} = this.state;
+    const {open, colors, currentColor, newColorName} = this.state;
     const {classes} = this.props;
 
-    console.log(colors);
+    // console.log(colors);
 
     return (
       <div className={classes.root}>
@@ -140,11 +141,11 @@ class  NewPalette extends Component {
             <TextValidator
               label="Color name"
               onChange={this.handleChange}
-              value={newPaletteName}
+              value={newColorName}
               validators={['required', 'isColorNameUnique', 'isColorUnique']}
               errorMessages={['this field is required', 'Color name is not valid', 'Color itself must be unique']}
               />
-            <Button type="submit" variant="contained" color="secondary" style={{backgroundColor: currentColor.hex }} onClick={this.handleAddColor}>
+            <Button type="submit" variant="contained" color="secondary" style={{backgroundColor: currentColor.hex }}>
               Add color
             </Button>
           </ValidatorForm>
