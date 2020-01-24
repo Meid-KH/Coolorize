@@ -13,6 +13,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import DraggableColorBox from './DraggableColorBox';
 
 import { ChromePicker } from 'react-color';
 
@@ -23,6 +24,7 @@ class  NewPalette extends Component {
     this.state = {
       open : true,
       currentColor : "#ff0000",
+      paletteName : "",
       newColorName: "",
       colors : [{ color: "#ff0000", name: "Red" }]
     }
@@ -36,6 +38,10 @@ class  NewPalette extends Component {
     // Color Rule
     ValidatorForm.addValidationRule('isColorUnique', () => 
       this.state.colors.every( ({color}) => color !== this.state.currentColor )
+    );
+    // Palette name Rule
+    ValidatorForm.addValidationRule('isPaletteNameUnique', value => 
+      this.props.palettes.every( ({paletteName}) => paletteName.toLowerCase() !== value.toLowerCase() )
     );
   }
 
@@ -56,8 +62,8 @@ class  NewPalette extends Component {
 
   handleAddColor = () => {
     const newColor = {
-      color : this.state.currentColor,
-      name : this.state.newColorName
+      name : this.state.newColorName,
+      color : this.state.currentColor
     }
     this.setState({
       colors : [...this.state.colors, newColor],
@@ -66,22 +72,41 @@ class  NewPalette extends Component {
     console.log('currentColor : '+ this.state.currentColor);
   }
 
+  handleSubmitPalette = () => {
+    const newPalette = {
+      paletteName : this.state.paletteName,
+      id : this.state.paletteName.toLowerCase().replace(/ /g, "-"),
+      emoji : "😒",
+      colors : this.state.colors
+    }
+    this.props.registerPalette(newPalette);
+    this.props.history.push("/");
+  }
+
   handleChange = (evt) => {
+    const {value, name} = evt.target;
     this.setState({
-      newColorName : evt.target.value
+       [name] : value
+    });
+  }
+  // Handle delete draggable Colorbox
+  handleDelete = (color_name) => {
+    console.log('Delete the color', color_name);
+    this.setState({
+      colors : this.state.colors.filter( color => color.name !== color_name )
     });
   }
 
   render () {
-    const {open, colors, currentColor, newColorName} = this.state;
+    const {open, colors, currentColor, newColorName, paletteName} = this.state;
     const {classes} = this.props;
 
-    // console.log(colors);
 
     return (
       <div className={classes.root}>
         <CssBaseline />
         <AppBar
+          color="default"
           position="fixed"
           className={clsx(classes.appBar, {
             [classes.appBarShift]: open,
@@ -100,6 +125,25 @@ class  NewPalette extends Component {
             <Typography variant="h6" noWrap>
               Persistent drawer
             </Typography>
+
+            <ValidatorForm
+              onSubmit={this.handleSubmitPalette}
+              onError={errors => console.log(errors)}
+              ref='form'
+              >
+              <TextValidator
+                label="Palette name"
+                onChange={this.handleChange}
+                name="paletteName"
+                value={paletteName}
+                validators={['required', 'isPaletteNameUnique']}
+                errorMessages={['this field is required', 'Palette name must be unique also !']}
+                />
+              <Button type="submit" variant="contained" color="secondary">
+                Add palette name
+              </Button>
+            </ValidatorForm>
+
           </Toolbar>
         </AppBar>
         <Drawer
@@ -141,6 +185,7 @@ class  NewPalette extends Component {
             <TextValidator
               label="Color name"
               onChange={this.handleChange}
+              name="newColorName"
               value={newColorName}
               validators={['required', 'isColorNameUnique', 'isColorUnique']}
               errorMessages={['this field is required', 'Color name is not valid', 'Color itself must be unique']}
@@ -159,7 +204,8 @@ class  NewPalette extends Component {
           >
           <div className={classes.drawerHeader} />
           <div className={classes.PaletteList}>
-            {colors.map( color => <div style={{backgroundColor: color.color}}> <h1>{color.name}</h1> </div> ) }
+            {colors.map( color => 
+            <DraggableColorBox key={color.name} backgroundColor={color.color} colorName={color.name} handleDelete={() => this.handleDelete(color.name)} /> ) }
           </div>
         </main>
       </div>

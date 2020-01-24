@@ -35,9 +35,6 @@ const styles = theme => ({
       textDecoration: "none"
     },
   },
-  button: {
-    margin: "0 0.5rem",
-  },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
@@ -80,10 +77,8 @@ const styles = theme => ({
     justifyContent: "center",
     alignItems: "center"
   },
-  buttons: {
-    width: "100%"
-  },
   button: {
+    margin: "0 0.5rem",
     width: "50%"
   },
   divider: {

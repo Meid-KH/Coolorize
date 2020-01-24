@@ -1,13 +1,15 @@
 export default {
     bg_wrapper: {
         backgroundColor: "#0652dd",
-        height: "100%"
+        height: "100%",
+        overflow: "auto"
     },
     container: {
         height: "100%",
         width: "992px",
         maxWidth: "60%",
         margin: "0 auto",
+        paddingBottom: "40px"
     },
     row: {
         display: "grid",
