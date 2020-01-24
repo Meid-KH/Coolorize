@@ -9,7 +9,6 @@ const styles = {
         position: "relative",
         color: "rgba(0,0,0,0.5)",
         "&:hover button": {
-            // transform: "scale(1.4)"
         },
         "& span": {
             fontWeight: "600",
