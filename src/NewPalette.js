@@ -13,7 +13,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
-import DraggableColorBox from './DraggableColorBox';
+import DraggableList from './DraggableList';
+import {arrayMove} from 'react-sortable-hoc';
+
 
 import { ChromePicker } from 'react-color';
 
@@ -23,10 +25,10 @@ class  NewPalette extends Component {
     super();
     this.state = {
       open : true,
-      currentColor : "#ff0000",
+      currentColor : "#0cffbc",
       paletteName : "",
       newColorName: "",
-      colors : [{ color: "#ff0000", name: "Red" }]
+      colors : [{ color: "#0cffbc", name: "Teal light" }]
     }
   }
 
@@ -96,6 +98,23 @@ class  NewPalette extends Component {
       colors : this.state.colors.filter( color => color.name !== color_name )
     });
   }
+  ClearPalette = () => {
+    this.setState( { colors : [] } );
+  }
+  addRandomColor = () => {
+    const AllColors = this.props.palettes.map(palette => palette.colors).flat();
+    const Random = Math.floor(Math.random() * AllColors.length) ;
+    const RandomColor = AllColors[Random];
+    this.setState({
+      colors: [...this.state.colors, RandomColor]
+    });
+  }
+  // On color box dragging ends 
+  onSortEnd = ({ oldIndex, newIndex }) => {
+    this.setState(({ colors }) => ({
+      colors: arrayMove(colors, oldIndex, newIndex),
+    }));
+  };
 
   render () {
     const {open, colors, currentColor, newColorName, paletteName} = this.state;
@@ -165,10 +184,10 @@ class  NewPalette extends Component {
             Design your palette
           </Typography>
 
-          <Button variant="contained" color="secondary">
+          <Button variant="contained" color="secondary" onClick={this.ClearPalette}>
             Clear palette
           </Button>
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" onClick={this.addRandomColor}>
             Random color
           </Button>
 
@@ -204,8 +223,14 @@ class  NewPalette extends Component {
           >
           <div className={classes.drawerHeader} />
           <div className={classes.PaletteList}>
-            {colors.map( color => 
-            <DraggableColorBox key={color.name} backgroundColor={color.color} colorName={color.name} handleDelete={() => this.handleDelete(color.name)} /> ) }
+            {/* {colors.map( color => 
+            <DraggableColorBox key={color.name} backgroundColor={color.color} colorName={color.name} handleDelete={() => this.handleDelete(color.name)} /> ) } */}
+            <DraggableList 
+              colors={colors} 
+              handleDelete={this.handleDelete} 
+              axis="xy"
+              onSortEnd={this.onSortEnd}
+            />
           </div>
         </main>
       </div>

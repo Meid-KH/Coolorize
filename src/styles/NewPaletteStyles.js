@@ -85,10 +85,12 @@ const styles = theme => ({
     width: "100%",
   },
   PaletteList: {
-    height: "calc(100vh - 64px)",
-    display: "grid",
-    gridTemplateColumns: "repeat(5, 1fr)",
-    gridTemplateRows: "repeat(4, 1fr)",
+    "& > div": {
+      height: "calc(100vh - 64px)",
+      display: "grid",
+      gridTemplateColumns: "repeat(5, 1fr)",
+      gridTemplateRows: "repeat(4, 1fr)",
+    }
   }
 });
 
