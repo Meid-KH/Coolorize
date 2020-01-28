@@ -2,3 +2,5 @@
   - two state of -fomat-
 
 - Refactor : this.state.colors.every => NewPalette.js
+
+- Pallet is Full 
