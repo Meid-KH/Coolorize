@@ -91,7 +91,22 @@ const styles = theme => ({
       gridTemplateColumns: "repeat(5, 1fr)",
       gridTemplateRows: "repeat(4, 1fr)",
     }
-  }
+  },
+  tool_bar: {
+    flex: "1",
+    display : "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    "& ._right": {
+      display: "flex",
+      alignItems: "center",
+      margin: "0 -5px",
+      "& button": {
+        margin : "5px 5px"
+      }
+    }
+  },
+
 });
 
 export default styles;
