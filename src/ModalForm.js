@@ -92,15 +92,13 @@ class ModalForm extends Component {
                 {currentStep === 2 && (
                     <div>
                         <DialogTitle id="form-dialog-title">Saving your palette</DialogTitle>
-                        {/* <DialogContent> */}
-                            <Picker
-                                set='messenger'
-                                title="Pick your emoji…"
-                                emoji="point_up"
-                                darkMode={false}
-                                onSelect={(emoji) => this.props.handleSubmitPalette(paletteName, emoji.native)}
-                            />
-                        {/* </DialogContent> */}
+                        <Picker
+                            set='apple'
+                            title="Pick your emoji…"
+                            emoji="point_up"
+                            darkMode={false}
+                            onSelect={(emoji) => this.props.handleSubmitPalette(paletteName, emoji.native)}
+                        />
                     </div>
                 )}
                 
