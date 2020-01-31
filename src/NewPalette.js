@@ -41,11 +41,11 @@ class  NewPalette extends Component {
     console.log('currentColor : '+ this.state.currentColor);
   }
 
-  handleSubmitPalette = (paletteName) => {
+  handleSubmitPalette = (paletteName, emoji) => {
     const newPalette = {
       paletteName: paletteName,
       id: paletteName.toLowerCase().replace(/ /g, "-"),
-      emoji : "😒",
+      emoji: emoji,
       colors : this.state.colors
     }
     this.props.registerPalette(newPalette);
@@ -103,6 +103,7 @@ class  NewPalette extends Component {
         <Drawer
           className={classes.drawer}
           variant="persistent"
+          color="darks"
           anchor="left"
           open={open}
           classes={{

@@ -6,14 +6,17 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import { Picker } from 'emoji-mart'
+import 'emoji-mart/css/emoji-mart.css'
 
 class ModalForm extends Component {
 
     constructor (props) {
         super(props);
         this.state = {
-            open: false,
-            paletteName: ""
+            open: true,
+            paletteName: "",
+            currentStep: 1
         }
     }
 
@@ -39,49 +42,69 @@ class ModalForm extends Component {
             [name]: value
         });
     }
+    
+    nextStep = () => {
+        this.setState({
+            currentStep: 2
+        });
+    }
 
     render() {
-        const { open, paletteName } = this.state;
+        const { open, paletteName, currentStep } = this.state;
+        const { HideModal } = this.props;
         return (
-            <div>
-                <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-                    Open form dialog
-                </Button>
-                <Dialog open={open} onClose={this.handleClose} aria-labelledby="form-dialog-title">
-                    <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>
-                            To subscribe to this website, please enter your email address here. We will send updates
-                            occasionally.
-                        </DialogContentText>
-                        <ValidatorForm
-                            onSubmit={() => this.props.handleSubmitPalette(paletteName)}
-                            onError={errors => console.log(errors)}
-                            ref='form'
-                            >
+            <Dialog open={open} onClose={ HideModal } aria-labelledby="form-dialog-title">
+                {/* Palette name Step */}
+                {currentStep === 1 && (
+                <ValidatorForm
+                        onSubmit={this.nextStep}
+                        onError={errors => console.log(errors)}
+                        ref='form'
+                    >
+                        <DialogTitle id="form-dialog-title">Saving your palette</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                                In order to save and add a palette, choose a name for it. also make sure it is unique.
+                            </DialogContentText>
                             <TextValidator
-                            label="Palette name"
-                            onChange={this.handleChange}
-                            name="paletteName"
-                            value={paletteName}
-                            validators={['required', 'isPaletteNameUnique']}
-                            errorMessages={['this field is required', 'Palette name must be unique also !']}
+                                label="Palette name"
+                                margin="normal"
+                                fullWidth
+                                onChange={this.handleChange}
+                                name="paletteName"
+                                value={paletteName}
+                                validators={['required', 'isPaletteNameUnique']}
+                                errorMessages={['this field is required', 'Palette name must be unique also !']}
                             />
-                            <Button type="submit" variant="contained" color="secondary">
-                            Add palette name
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={ HideModal } variant="outlined" color="primary">
+                                Cancel
                             </Button>
-                        </ValidatorForm>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleClose} color="primary">
-                            Cancel
-                        </Button>
-                        <Button onClick={this.handleClose} color="primary">
-                            Subscribe
-                        </Button>
-                    </DialogActions>
-                </Dialog>
-            </div>
+                            <Button type="submit" variant="contained" color="primary">
+                                Save & continue
+                            </Button>
+                        </DialogActions>
+                    </ValidatorForm>
+                    )}
+
+                {/* Emoji Step */}
+                {currentStep === 2 && (
+                    <div>
+                        <DialogTitle id="form-dialog-title">Saving your palette</DialogTitle>
+                        {/* <DialogContent> */}
+                            <Picker
+                                set='messenger'
+                                title="Pick your emoji…"
+                                emoji="point_up"
+                                darkMode={false}
+                                onSelect={(emoji) => this.props.handleSubmitPalette(paletteName, emoji.native)}
+                            />
+                        {/* </DialogContent> */}
+                    </div>
+                )}
+                
+            </Dialog>
         );
     }
 

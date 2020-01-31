@@ -16,6 +16,7 @@ class NewPaletteHeader extends Component {
         super();
         this.state = {
             open: true,
+            IsModalOpen : false
         }
     }
 
@@ -26,8 +27,21 @@ class NewPaletteHeader extends Component {
         });
     }
 
+    triggerModal = () => {
+        this.setState({
+            IsModalOpen: true
+        });
+    }
+
+    HideModal = () => {
+        this.setState({
+            IsModalOpen: false
+        });
+    }
+
 
     render() {
+        const { IsModalOpen } = this.state;
         const { open, classes, palettes } = this.props;
 
         return (
@@ -57,11 +71,20 @@ class NewPaletteHeader extends Component {
                 </div>
                 <div className="_right">
                     <Link to="/">
-                        <Button variant="contained" color="primary">
+                        <Button variant="outlined" color="primary">
                             Go back
                         </Button>
                     </Link>
-                    <ModalForm palettes={palettes} handleSubmitPalette={this.props.handleSubmitPalette} />
+                    <Button variant="contained" color="primary" onClick={this.triggerModal}>
+                    Save your palette
+                    </Button>
+                    {IsModalOpen && 
+                        <ModalForm 
+                            palettes={palettes} 
+                            handleSubmitPalette={this.props.handleSubmitPalette} 
+                            HideModal={this.HideModal}
+                        />
+                    }
                 </div>
             
             </Toolbar>

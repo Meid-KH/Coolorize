@@ -4,3 +4,5 @@
 - Refactor : this.state.colors.every => NewPalette.js
 
 - Pallet is Full 
+
+backend.js:6 Deprecation warning: arrayMove will no longer be exported by 'react-sortable-hoc' in the next major release. Please install the `array-move` package locally instead.
