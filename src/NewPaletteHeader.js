@@ -54,40 +54,39 @@ class NewPaletteHeader extends Component {
                 [classes.appBarShift]: open,
             })}
             >
-            <Toolbar className={classes.tool_bar}>
-                <div className="_left">
-                <IconButton
-                    color="inherit"
-                    aria-label="open drawer"
-                    onClick={this.props.handleDrawerOpen}
-                    edge="start"
-                    className={clsx(classes.menuButton, open && classes.hide)}
-                >
-                    <MenuIcon />    
-                </IconButton>
-                <Typography variant="h6" noWrap>
-                    Persistent drawer   
-                </Typography>
-                </div>
-                <div className="_right">
-                    <Link to="/">
-                        <Button variant="outlined" color="primary">
-                            Go back
+                <Toolbar className={classes.tool_bar}>
+                    <div className="_left">
+                    <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        onClick={this.props.handleDrawerOpen}
+                        edge="start"
+                        className={clsx(classes.menuButton, open && classes.hide)}
+                    >
+                        <MenuIcon />    
+                    </IconButton>
+                    <Typography variant="h6" noWrap>
+                    Create your own palette
+                    </Typography>
+                    </div>
+                    <div className="_right">
+                        <Link to="/">
+                            <Button variant="outlined" color="primary">
+                                Go back
+                            </Button>
+                        </Link>
+                        <Button variant="contained" color="primary" onClick={this.triggerModal}>
+                        Save your palette
                         </Button>
-                    </Link>
-                    <Button variant="contained" color="primary" onClick={this.triggerModal}>
-                    Save your palette
-                    </Button>
-                    {IsModalOpen && 
-                        <ModalForm 
-                            palettes={palettes} 
-                            handleSubmitPalette={this.props.handleSubmitPalette} 
-                            HideModal={this.HideModal}
-                        />
-                    }
-                </div>
-            
-            </Toolbar>
+                        {IsModalOpen && 
+                            <ModalForm 
+                                palettes={palettes} 
+                                handleSubmitPalette={this.props.handleSubmitPalette} 
+                                HideModal={this.HideModal}
+                            />
+                        }
+                    </div>
+                </Toolbar>
             </AppBar>
             </div>
         )

@@ -12,19 +12,36 @@ import styles from "./styles/AppStyles";
 class App extends Component {
   constructor (props) {
     super(props);
+    const storedPalettes = JSON.parse(window.localStorage.getItem("palettes"));
     this.state = {
-      palettes : seedColors
+      palettes: storedPalettes || seedColors
     }
   }
+
   findPalette = (id) => {
     return this.state.palettes.find( function(palette)  {
       return palette.id === id;
     } );
   }
+
   registerPalette = (palette) => {
     console.log('register palette', palette);
-    this.setState({ palettes: [...this.state.palettes, palette] });
+    this.setState({ 
+      palettes: [...this.state.palettes, palette] 
+    }, this.synchStorage);
   }
+
+  deletePalette = (ID) => {
+    const remainingPalettes = this.state.palettes.filter(p => p.id !== ID );
+    this.setState({
+      palettes: remainingPalettes
+    }, this.synchStorage);
+  }
+
+  synchStorage = () => {
+    window.localStorage.setItem("palettes", JSON.stringify(this.state.palettes));
+  }
+
   render() {
     return (
       <div className={this.props.classes.colorPaletteWrapper}>
@@ -56,13 +73,13 @@ class App extends Component {
               render={ routeProps => 
             (<Palette  palette={ generatePalette( this.findPalette(routeProps.match.params.id) ) } />) } />
   
-            <Route extact path='/' render={ (routeProps) => <PaletteList palettes={this.state.palettes} {...routeProps} /> } />
+            <Route extact path='/' render={(routeProps) => <PaletteList palettes={this.state.palettes} {...routeProps} handleDeletePalette={this.deletePalette} /> } />
   
           </Switch>
         </BrowserRouter>
       </div>
         
-    );
+    )
   }
 }
 

@@ -1,9 +1,10 @@
 export default {
   palette_wrapper: {
     flex: 1,
+    overflow: "hidden"
   },
   palette: {
-    height: '90%',
+    height: '90vh',
     display: 'grid',
     gridTemplateColumns: 'repeat(5,1fr)',
     gridTemplateRows: 'repeat(4, 1fr)',

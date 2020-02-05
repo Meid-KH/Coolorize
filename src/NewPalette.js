@@ -19,12 +19,13 @@ class  NewPalette extends Component {
 
   constructor (props) {
     super();
+    const DefaultColorSet = props.palettes[0].colors.splice(0,6);
     this.state = {
       open : true,
-      colors : [{ color: "#0cffbc", name: "Teal light" }]
-    }
+      colors: DefaultColorSet,
+    };
   }
-
+  
   handleDrawerClose = () => {
     this.setState( { open : false } )
   };
@@ -88,7 +89,7 @@ class  NewPalette extends Component {
   render () {
     const { open, colors } = this.state;
     const { classes, palettes } = this.props;
-
+    
 
     return (
       <div className={classes.root}>

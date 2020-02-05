@@ -6,3 +6,22 @@
 - Pallet is Full 
 
 backend.js:6 Deprecation warning: arrayMove will no longer be exported by 'react-sortable-hoc' in the next major release. Please install the `array-move` package locally instead.
+
+
+- BUG : Creating a palette with no colors set.
+
+- BUG : Default colors set splice in NewPalette.js affects paletteList.js after Go bak route redirect.
+
+- BUG : NewPalette.js delete & add colors bug : duplicate key attricute. unique key value must be generated.
+
+- BUGS : Random Color gen.
+
+STYLES : {
+    button {
+        border-radius: 30px !important;
+        margin: 5px !important;
+        box-shadow: none !important;
+        border-width: 2px !important;
+        /* border-color: currentColor !important; */
+    }
+}

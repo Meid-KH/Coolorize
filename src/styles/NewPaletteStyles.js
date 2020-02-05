@@ -33,7 +33,7 @@ const styles = theme => ({
     marginRight: "1rem",
     "& a": {
       textDecoration: "none"
-    },
+    }
   },
   drawer: {
     width: drawerWidth,
@@ -60,7 +60,7 @@ const styles = theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
     }),
-    marginLeft: -drawerWidth,
+    marginLeft: -drawerWidth
   },
   contentShift: {
     transition: theme.transitions.create("margin", {
@@ -82,31 +82,36 @@ const styles = theme => ({
     width: "50%"
   },
   divider: {
-    width: "100%",
+    width: "100%"
   },
   PaletteList: {
+    backgroundColor: "rgba(255, 195, 195, 0.7)",
     "& > div": {
       height: "calc(100vh - 64px)",
       display: "grid",
       gridTemplateColumns: "repeat(5, 1fr)",
-      gridTemplateRows: "repeat(4, 1fr)",
+      gridTemplateRows: "repeat(4, 1fr)"
     }
   },
   tool_bar: {
     flex: "1",
-    display : "flex",
+    display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
+    "& ._left": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between"
+    },
     "& ._right": {
       display: "flex",
       alignItems: "center",
       margin: "0 -5px",
       "& button": {
-        margin : "5px 5px"
+        margin: "5px 5px"
       }
     }
-  },
-
+  }
 });
 
 export default styles;
