@@ -25,20 +25,20 @@ export default {
     padding: "30px 0 40px",
     "& h1": {
       color: "#fff",
-      fontSize: "36px",
-      fontWeight: "600",
+      fontSize: "40px",
+      fontFamily: "Roboto Slab",
+      fontWeight: "700",
       lineHeight: "1",
       letterSpacing: "1px",
       margin: "0",
-      textShadow: "0px 1px 0px #b13200"
+      textShadow: "3px 2px 1px #3c009b"
     },
     "& a": {
       color: "#fff",
       fontSize: "16px",
       fontWeight: "500",
       textDecoration: "underline",
-      display: "inline-block",
-      textShadow: "0px 1px 0px #b13200"
+      display: "inline-block"
     }
   }
 };

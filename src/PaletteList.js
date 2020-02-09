@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Spring } from "react-spring/renderprops";
+
 import { withStyles } from "@material-ui/core/styles";
 import MiniPalette from "./MiniPalette";
 import styles from "./styles/PaletteListStyles";
@@ -62,14 +64,27 @@ class PaletteList extends Component {
             </Link>
           </header>
           <div className={classes.row}>
-            {palettes.map(palette => (
-              <MiniPalette
-                TriggerDialog={this.TriggerDialog}
-                key={palette.id}
-                {...palette}
-                handleRedirect={() => redirectToPalette(palette.id)}
-              />
-            ))}
+            {palettes.map((palette, index) => {
+              return (
+                <Spring
+                  delay={`${index}00`}
+                  key={index}
+                  from={{ opacity: 0, transform: "translate3d(0,-40px,0)" }}
+                  to={{ opacity: 1, transform: "translate3d(0,0,0)" }}
+                >
+                  {({ opacity, transform }) => (
+                    <div style={{ opacity, transform }}>
+                      <MiniPalette
+                        TriggerDialog={this.TriggerDialog}
+                        // key={palette.id}
+                        {...palette}
+                        handleRedirect={() => redirectToPalette(palette.id)}
+                      />
+                    </div>
+                  )}
+                </Spring>
+              );
+            })}
           </div>
         </div>
 

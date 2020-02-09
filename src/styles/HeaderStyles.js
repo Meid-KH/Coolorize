@@ -4,7 +4,7 @@ export default {
     alignItems: "center",
     justifyContent: "flex-start",
     height: "5vh",
-    backgroundColor: "rgba(83, 83, 83, 0.22)"
+    backgroundColor: "#fff"
   },
   logo: {
     marginRight: "15px",

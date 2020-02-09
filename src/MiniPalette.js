@@ -1,4 +1,5 @@
 import React from "react";
+import { Spring } from "react-spring/renderprops";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "./styles/MiniPaletteStyles";
 import DeleteIcon from "@material-ui/icons/Delete";
