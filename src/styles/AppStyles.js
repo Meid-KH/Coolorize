@@ -6,7 +6,7 @@ export default {
     minHeight: "100vh",
     display: "flex",
     flexDirection: "column",
-    backgroundColor: "#ee5522",
+    backgroundColor: "#6235aa",
     backgroundImage: `url("${bg_img_v2}")`,
     /* background by SVGBackgrounds.com */
     backgroundAttachment: "fixed",

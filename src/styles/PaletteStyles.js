@@ -1,3 +1,5 @@
+import sizes from "./Sizes";
+
 export default {
   palette_wrapper: {
     flex: 1,
@@ -6,11 +8,15 @@ export default {
   palette: {
     height: '90vh',
     display: 'grid',
-    gridTemplateColumns: 'repeat(5,1fr)',
-    gridTemplateRows: 'repeat(4, 1fr)',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr)) ',
+    // gridTemplateRows: 'repeat(4, 1fr)',
     "&._single": {
       gridTemplateRows: 'repeat(2, 1fr)',
     },
+    [sizes.down("md")]: {
+      overflowY: "auto",
+      height: '80vh',
+    }
   },
   colorBox: {
     "&.go_back" : {

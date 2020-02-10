@@ -1,10 +1,16 @@
+import sizes from "./Sizes";
+
 export default {
   navbar: {
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-start",
+    flexWrap: "wrap",
     height: "5vh",
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    [sizes.down("md")]: {
+      height: '20vh',
+    }
   },
   logo: {
     marginRight: "15px",

@@ -6,8 +6,7 @@ export default {
   },
   container: {
     height: "100%",
-    width: "992px",
-    maxWidth: "100%",
+    maxWidth: "992px",
     margin: "0 auto",
     paddingLeft: "15px",
     paddingRight: "15px",
@@ -15,7 +14,8 @@ export default {
   },
   row: {
     display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)",
+    // gridTemplateColumns: "repeat(3, 1fr)",
+    gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
     gridGap: "30px"
   },
   header: {
@@ -28,9 +28,10 @@ export default {
       fontSize: "40px",
       fontFamily: "Roboto Slab",
       fontWeight: "700",
-      lineHeight: "1",
+      textTransform: "uppercase",
       letterSpacing: "1px",
       margin: "0",
+      paddingRight: "20px",
       textShadow: "3px 2px 1px #3c009b"
     },
     "& a": {
