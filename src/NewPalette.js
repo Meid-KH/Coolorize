@@ -20,7 +20,7 @@ class NewPalette extends Component {
     const DefaultColorSet = seedColors[0].colors;
     this.state = {
       open: true,
-      colors: DefaultColorSet
+      colors: DefaultColorSet,
     };
   }
 
@@ -32,10 +32,10 @@ class NewPalette extends Component {
     this.setState({ open: true });
   };
 
-  handleAddColor = newColor => {
+  handleAddColor = (newColor) => {
     this.setState({
       colors: [...this.state.colors, newColor],
-      newColorName: ""
+      newColorName: "",
     });
     console.log("currentColor : " + this.state.currentColor);
   };
@@ -45,23 +45,23 @@ class NewPalette extends Component {
       paletteName: paletteName,
       id: paletteName.toLowerCase().replace(/ /g, "-"),
       emoji: emoji,
-      colors: this.state.colors
+      colors: this.state.colors,
     };
     this.props.registerPalette(newPalette);
     this.props.history.push("/");
   };
 
-  handleChange = evt => {
+  handleChange = (evt) => {
     const { value, name } = evt.target;
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
   // Handle delete draggable Colorbox
-  handleDelete = color_name => {
+  handleDelete = (color_name) => {
     console.log("Delete the color", color_name);
     this.setState({
-      colors: this.state.colors.filter(color => color.name !== color_name)
+      colors: this.state.colors.filter((color) => color.name !== color_name),
     });
   };
 
@@ -70,17 +70,19 @@ class NewPalette extends Component {
   };
 
   addRandomColor = () => {
-    const AllColors = this.props.palettes.map(palette => palette.colors).flat();
+    const AllColors = this.props.palettes
+      .map((palette) => palette.colors)
+      .flat();
     const Random = Math.floor(Math.random() * AllColors.length);
     const RandomColor = AllColors[Random];
     this.setState({
-      colors: [...this.state.colors, RandomColor]
+      colors: [...this.state.colors, RandomColor],
     });
   };
   // On color box dragging ends
   onSortEnd = ({ oldIndex, newIndex }) => {
     this.setState(({ colors }) => ({
-      colors: arrayMove(colors, oldIndex, newIndex)
+      colors: arrayMove(colors, oldIndex, newIndex),
     }));
   };
 
@@ -105,7 +107,7 @@ class NewPalette extends Component {
           anchor="left"
           open={open}
           classes={{
-            paper: classes.drawerPaper
+            paper: classes.drawerPaper,
           }}
         >
           <div className={classes.drawerHeader}>
@@ -114,28 +116,31 @@ class NewPalette extends Component {
             </IconButton>
           </div>
           <Divider className={classes.divider} />
-          <Typography variant="h6">Design your palette</Typography>
 
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={this.ClearPalette}
-          >
-            Clear palette
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={this.addRandomColor}
-          >
-            Random color
-          </Button>
-
-          <ColorPicker handleAddColor={this.handleAddColor} colors={colors} />
+          <h2 className={classes.newPaletteTitle}>Design your palette</h2>
+          <div className={classes.paletteDesigner}>
+            <div className={classes.designerBtns}>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={this.ClearPalette}
+              >
+                Clear palette
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={this.addRandomColor}
+              >
+                Random color
+              </Button>
+            </div>
+            <ColorPicker handleAddColor={this.handleAddColor} colors={colors} />
+          </div>
         </Drawer>
         <main
           className={clsx(classes.content, {
-            [classes.contentShift]: open
+            [classes.contentShift]: open,
           })}
         >
           <div className={classes.drawerHeader} />
